@@ -9,7 +9,10 @@ SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-stock-burkina-natama-
 DEBUG = os.environ.get('DEBUG', 'True') == 'True'
 
 ALLOWED_HOSTS = ['*']
-CSRF_TRUSTED_ORIGINS = ['https://web-production-85a0e.up.railway.app']
+CSRF_TRUSTED_ORIGINS = [
+    'https://stockbf.up.railway.app',
+    'https://web-production-85a0e.up.railway.app',
+]
 
 INSTALLED_APPS = [
     'django.contrib.admin',
