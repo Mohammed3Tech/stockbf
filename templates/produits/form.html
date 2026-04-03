@@ -158,16 +158,16 @@
 {% endblock %}
 
 {% block extra_js %}
-<!-- QuaggaJS — scanner code-barres -->
-<script src="https://cdn.jsdelivr.net/npm/quagga@0.12.1/dist/quagga.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@zxing/library@0.18.6/umd/index.min.js"></script>
 <script>
 const btnScanner = document.getElementById('btnScanner');
 const btnStop = document.getElementById('btnStopScan');
 const scannerContainer = document.getElementById('scannerContainer');
 const scanResult = document.getElementById('scanResult');
 const codeBarre = document.getElementById('id_code_barre');
+const video = document.getElementById('scannerVideo');
 
-let scanning = false;
+let codeReader = null;
 
 btnScanner.addEventListener('click', function() {
     scannerContainer.style.display = 'block';
@@ -180,72 +180,60 @@ btnStop.addEventListener('click', function() {
 });
 
 function startScanner() {
-    scanning = true;
-    Quagga.init({
-        inputStream: {
-            name: "Live",
-            type: "LiveStream",
-            target: document.getElementById('scannerVideo'),
-            constraints: {
-                facingMode: "environment",
-                width: { min: 640 },
-                height: { min: 480 },
-            },
-        },
-        decoder: {
-            readers: [
-                "code_128_reader",
-                "ean_reader",
-                "ean_8_reader",
-                "code_39_reader",
-                "upc_reader",
-                "upc_e_reader",
-            ]
-        },
-        locate: true,
-    }, function(err) {
-        if (err) {
-            scanResult.innerHTML = '<i class="bi bi-exclamation-triangle text-warning me-1"></i>Caméra non disponible';
-            return;
-        }
-        Quagga.start();
-    });
+    codeReader = new ZXing.BrowserMultiFormatReader();
 
-    Quagga.onDetected(function(result) {
-        const code = result.codeResult.code;
-        if (code && scanning) {
-            scanning = false;
-
-            // Remplir le champ code barre
-            if (codeBarre) {
-                codeBarre.value = code;
-                codeBarre.style.borderColor = '#28a745';
-                codeBarre.style.boxShadow = '0 0 0 0.2rem rgba(40,167,69,0.25)';
+    codeReader.listVideoInputDevices().then(videoInputDevices => {
+        // Prendre la caméra arrière sur mobile
+        let deviceId = videoInputDevices[0]?.deviceId;
+        videoInputDevices.forEach(device => {
+            if (device.label.toLowerCase().includes('back') ||
+                device.label.toLowerCase().includes('rear') ||
+                device.label.toLowerCase().includes('arrière') ||
+                device.label.toLowerCase().includes('environment')) {
+                deviceId = device.deviceId;
             }
+        });
 
-            // Afficher résultat
-            scanResult.innerHTML = `
-                <i class="bi bi-check-circle-fill text-success me-1"></i>
-                <strong>Code détecté :</strong> ${code}
-            `;
-            scanResult.style.color = '#0f5132';
-            scanResult.style.background = '#d1e7dd';
+        codeReader.decodeFromVideoDevice(deviceId, 'scannerVideo', (result, err) => {
+            if (result) {
+                const code = result.getText();
 
-            // Vibration sur mobile
-            if (navigator.vibrate) navigator.vibrate(200);
+                // Remplir le champ code barre
+                if (codeBarre) {
+                    codeBarre.value = code;
+                    codeBarre.style.borderColor = '#28a745';
+                    codeBarre.style.boxShadow = '0 0 0 0.2rem rgba(40,167,69,0.25)';
+                }
 
-            // Arrêter après 1 seconde
-            setTimeout(() => stopScanner(), 1000);
-        }
+                // Afficher résultat
+                scanResult.innerHTML = `
+                    <i class="bi bi-check-circle-fill text-success me-1"></i>
+                    <strong>Code détecté :</strong> ${code}
+                `;
+                scanResult.style.color = '#0f5132';
+                scanResult.style.background = '#d1e7dd';
+
+                // Vibration mobile
+                if (navigator.vibrate) navigator.vibrate(200);
+
+                // Arrêter après 1.5 secondes
+                setTimeout(() => stopScanner(), 1500);
+            }
+        });
+
+    }).catch(err => {
+        scanResult.innerHTML = '<i class="bi bi-exclamation-triangle text-warning me-1"></i>Caméra non disponible — vérifiez les permissions';
     });
 }
 
 function stopScanner() {
-    Quagga.stop();
+    if (codeReader) {
+        codeReader.reset();
+        codeReader = null;
+    }
     scannerContainer.style.display = 'none';
     btnScanner.style.display = 'block';
     btnScanner.innerHTML = '<i class="bi bi-camera me-1"></i> Scanner à nouveau';
-    scanning = false;
 }
 </script>
 {% endblock %}
