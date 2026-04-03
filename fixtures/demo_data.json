@@ -1,0 +1,771 @@
+[
+{
+  "model": "auth.user",
+  "fields": {
+    "password": "pbkdf2_sha256$1200000$svCRFAEPdIOXSYiGIHlfW0$y/27RcMPBJ+C3DVdFtF3h8bF/NMR9xU3vuANJ5rtJdM=",
+    "last_login": "2026-04-02T20:58:11.012Z",
+    "is_superuser": true,
+    "username": "mohammed",
+    "first_name": "",
+    "last_name": "",
+    "email": "",
+    "is_staff": true,
+    "is_active": true,
+    "date_joined": "2026-04-02T13:49:07.570Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "fields": {
+    "password": "pbkdf2_sha256$1200000$NAYSRF7572qLClNsSvTr7r$oYKOVuIgsRnR2C5YEyqWPu+NvA4L1jz6OJLiAJ4Iwjs=",
+    "last_login": null,
+    "is_superuser": false,
+    "username": "bachirou",
+    "first_name": "Bachirou",
+    "last_name": "Sawadogo",
+    "email": "bachirou@stockbf.com",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2026-04-02T21:12:41.793Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "fields": {
+    "password": "pbkdf2_sha256$1200000$ldwLxCy9Jjxr0WlEtue1Wx$wjHioZK8O25UJA/Btfde4siDJWz/+YOFPgYCA/lo8R4=",
+    "last_login": null,
+    "is_superuser": false,
+    "username": "aminata",
+    "first_name": "Aminata",
+    "last_name": "Ouedraogo",
+    "email": "aminata@stockbf.com",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2026-04-02T21:12:42.492Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "rq7ectzl34y7d4ncvp4zbvwx5xubj2yn",
+  "fields": {
+    "session_data": ".eJxVjDsOwjAQBe_iGlnxL1lT0nMGa9de4wCypTipEHeHSCmgfTPzXiLgtpawdV7CnMRZKHH63Qjjg-sO0h3rrcnY6rrMJHdFHrTLa0v8vBzu30HBXr61tQCkBkDvNE2kSOWMk7MRwWJmtqM2zOSjSYSOtFd5BAIzeJd1YhDvD-14OGo:1w8P7D:CXsqCByyZeUWlAFlBzxGNwPnBZztvOjmxb2Srf2SkSg",
+    "expire_date": "2026-04-16T20:58:11.019Z"
+  }
+},
+{
+  "model": "produits.categorie",
+  "pk": 1,
+  "fields": {
+    "nom": "Alimentation",
+    "description": "Produits alimentaires",
+    "created_at": "2026-04-02T21:02:25.837Z"
+  }
+},
+{
+  "model": "produits.categorie",
+  "pk": 2,
+  "fields": {
+    "nom": "Hygiène",
+    "description": "Produits hygiène",
+    "created_at": "2026-04-02T21:02:25.866Z"
+  }
+},
+{
+  "model": "produits.categorie",
+  "pk": 3,
+  "fields": {
+    "nom": "Électronique",
+    "description": "Appareils électroniques",
+    "created_at": "2026-04-02T21:02:25.877Z"
+  }
+},
+{
+  "model": "produits.categorie",
+  "pk": 4,
+  "fields": {
+    "nom": "Pharmacie",
+    "description": "Médicaments et soins",
+    "created_at": "2026-04-02T21:02:25.890Z"
+  }
+},
+{
+  "model": "produits.categorie",
+  "pk": 5,
+  "fields": {
+    "nom": "Fournitures",
+    "description": "Fournitures de bureau et scolaires",
+    "created_at": "2026-04-02T21:12:43.096Z"
+  }
+},
+{
+  "model": "produits.categorie",
+  "pk": 6,
+  "fields": {
+    "nom": "Boissons",
+    "description": "Boissons et jus",
+    "created_at": "2026-04-02T21:12:43.109Z"
+  }
+},
+{
+  "model": "produits.fournisseur",
+  "pk": 1,
+  "fields": {
+    "nom": "SODEPAL Burkina",
+    "telephone": "+226 25 30 00 00",
+    "email": "",
+    "adresse": "Ouagadougou",
+    "created_at": "2026-04-02T21:02:25.897Z"
+  }
+},
+{
+  "model": "produits.fournisseur",
+  "pk": 2,
+  "fields": {
+    "nom": "Importex BF",
+    "telephone": "+226 25 31 00 00",
+    "email": "",
+    "adresse": "Bobo-Dioulasso",
+    "created_at": "2026-04-02T21:02:25.913Z"
+  }
+},
+{
+  "model": "produits.fournisseur",
+  "pk": 3,
+  "fields": {
+    "nom": "PharmaBF",
+    "telephone": "+226 25 33 44 55",
+    "email": "contact@pharmabf.bf",
+    "adresse": "Avenue Kwame Nkrumah, Ouagadougou",
+    "created_at": "2026-04-02T21:12:43.122Z"
+  }
+},
+{
+  "model": "produits.fournisseur",
+  "pk": 4,
+  "fields": {
+    "nom": "TechDistrib Ouaga",
+    "telephone": "+226 70 11 22 33",
+    "email": "info@techdistrib.bf",
+    "adresse": "Zone du Kadiogo, Ouagadougou",
+    "created_at": "2026-04-02T21:12:43.136Z"
+  }
+},
+{
+  "model": "produits.produit",
+  "pk": 1,
+  "fields": {
+    "nom": "Riz local 25kg",
+    "description": "",
+    "categorie": 1,
+    "fournisseur": 1,
+    "prix_achat": "12000.00",
+    "prix_vente": "15000.00",
+    "quantite": 50,
+    "seuil_alerte": 10,
+    "image": "",
+    "code_barre": null,
+    "created_at": "2026-04-02T21:02:25.923Z",
+    "updated_at": "2026-04-02T21:02:25.923Z",
+    "created_by": [
+      "mohammed"
+    ]
+  }
+},
+{
+  "model": "produits.produit",
+  "pk": 2,
+  "fields": {
+    "nom": "Huile Dinor 5L",
+    "description": "",
+    "categorie": 1,
+    "fournisseur": 1,
+    "prix_achat": "4500.00",
+    "prix_vente": "5500.00",
+    "quantite": 3,
+    "seuil_alerte": 5,
+    "image": "",
+    "code_barre": null,
+    "created_at": "2026-04-02T21:02:25.939Z",
+    "updated_at": "2026-04-02T21:02:25.939Z",
+    "created_by": [
+      "mohammed"
+    ]
+  }
+},
+{
+  "model": "produits.produit",
+  "pk": 3,
+  "fields": {
+    "nom": "Savon Fa x12",
+    "description": "",
+    "categorie": 2,
+    "fournisseur": 2,
+    "prix_achat": "3600.00",
+    "prix_vente": "4800.00",
+    "quantite": 25,
+    "seuil_alerte": 8,
+    "image": "",
+    "code_barre": null,
+    "created_at": "2026-04-02T21:02:25.948Z",
+    "updated_at": "2026-04-02T21:02:25.948Z",
+    "created_by": [
+      "mohammed"
+    ]
+  }
+},
+{
+  "model": "produits.produit",
+  "pk": 4,
+  "fields": {
+    "nom": "Sucre 50kg",
+    "description": "",
+    "categorie": 1,
+    "fournisseur": 1,
+    "prix_achat": "22000.00",
+    "prix_vente": "26000.00",
+    "quantite": 2,
+    "seuil_alerte": 5,
+    "image": "",
+    "code_barre": null,
+    "created_at": "2026-04-02T21:02:25.959Z",
+    "updated_at": "2026-04-02T21:02:25.959Z",
+    "created_by": [
+      "mohammed"
+    ]
+  }
+},
+{
+  "model": "produits.produit",
+  "pk": 5,
+  "fields": {
+    "nom": "Téléphone Itel",
+    "description": "",
+    "categorie": 3,
+    "fournisseur": 2,
+    "prix_achat": "35000.00",
+    "prix_vente": "45000.00",
+    "quantite": 12,
+    "seuil_alerte": 3,
+    "image": "",
+    "code_barre": null,
+    "created_at": "2026-04-02T21:02:25.970Z",
+    "updated_at": "2026-04-02T21:02:25.970Z",
+    "created_by": [
+      "mohammed"
+    ]
+  }
+},
+{
+  "model": "produits.produit",
+  "pk": 6,
+  "fields": {
+    "nom": "Paracétamol 500mg",
+    "description": "",
+    "categorie": 4,
+    "fournisseur": 2,
+    "prix_achat": "500.00",
+    "prix_vente": "800.00",
+    "quantite": 4,
+    "seuil_alerte": 10,
+    "image": "",
+    "code_barre": null,
+    "created_at": "2026-04-02T21:02:25.982Z",
+    "updated_at": "2026-04-02T21:02:25.982Z",
+    "created_by": [
+      "mohammed"
+    ]
+  }
+},
+{
+  "model": "produits.produit",
+  "pk": 7,
+  "fields": {
+    "nom": "Farine de blé 25kg",
+    "description": "",
+    "categorie": 1,
+    "fournisseur": 1,
+    "prix_achat": "9500.00",
+    "prix_vente": "12000.00",
+    "quantite": 8,
+    "seuil_alerte": 6,
+    "image": "",
+    "code_barre": null,
+    "created_at": "2026-04-02T21:02:25.995Z",
+    "updated_at": "2026-04-02T21:12:43.593Z",
+    "created_by": [
+      "mohammed"
+    ]
+  }
+},
+{
+  "model": "produits.produit",
+  "pk": 8,
+  "fields": {
+    "nom": "Lait Bonnet Rouge",
+    "description": "",
+    "categorie": 1,
+    "fournisseur": 1,
+    "prix_achat": "800.00",
+    "prix_vente": "1200.00",
+    "quantite": 60,
+    "seuil_alerte": 15,
+    "image": "",
+    "code_barre": null,
+    "created_at": "2026-04-02T21:02:26.005Z",
+    "updated_at": "2026-04-02T21:02:26.005Z",
+    "created_by": [
+      "mohammed"
+    ]
+  }
+},
+{
+  "model": "produits.produit",
+  "pk": 9,
+  "fields": {
+    "nom": "Tomate concentrée 800g",
+    "description": "",
+    "categorie": 1,
+    "fournisseur": 1,
+    "prix_achat": "600.00",
+    "prix_vente": "900.00",
+    "quantite": 80,
+    "seuil_alerte": 15,
+    "image": "",
+    "code_barre": null,
+    "created_at": "2026-04-02T21:12:43.163Z",
+    "updated_at": "2026-04-02T21:12:43.163Z",
+    "created_by": [
+      "mohammed"
+    ]
+  }
+},
+{
+  "model": "produits.produit",
+  "pk": 10,
+  "fields": {
+    "nom": "Café Nescafé 200g",
+    "description": "",
+    "categorie": 6,
+    "fournisseur": 2,
+    "prix_achat": "2800.00",
+    "prix_vente": "3500.00",
+    "quantite": 87,
+    "seuil_alerte": 10,
+    "image": "",
+    "code_barre": null,
+    "created_at": "2026-04-02T21:12:43.177Z",
+    "updated_at": "2026-04-02T21:12:43.502Z",
+    "created_by": [
+      "bachirou"
+    ]
+  }
+},
+{
+  "model": "produits.produit",
+  "pk": 11,
+  "fields": {
+    "nom": "Jus Bissap 1L",
+    "description": "",
+    "categorie": 6,
+    "fournisseur": 1,
+    "prix_achat": "500.00",
+    "prix_vente": "750.00",
+    "quantite": 120,
+    "seuil_alerte": 20,
+    "image": "",
+    "code_barre": null,
+    "created_at": "2026-04-02T21:12:43.193Z",
+    "updated_at": "2026-04-02T21:12:43.193Z",
+    "created_by": [
+      "bachirou"
+    ]
+  }
+},
+{
+  "model": "produits.produit",
+  "pk": 12,
+  "fields": {
+    "nom": "Cahier 200 pages",
+    "description": "",
+    "categorie": 5,
+    "fournisseur": 2,
+    "prix_achat": "400.00",
+    "prix_vente": "600.00",
+    "quantite": 120,
+    "seuil_alerte": 30,
+    "image": "",
+    "code_barre": null,
+    "created_at": "2026-04-02T21:12:43.203Z",
+    "updated_at": "2026-04-02T21:12:43.670Z",
+    "created_by": [
+      "aminata"
+    ]
+  }
+},
+{
+  "model": "produits.produit",
+  "pk": 13,
+  "fields": {
+    "nom": "Stylo Bic x10",
+    "description": "",
+    "categorie": 5,
+    "fournisseur": 2,
+    "prix_achat": "500.00",
+    "prix_vente": "800.00",
+    "quantite": 150,
+    "seuil_alerte": 25,
+    "image": "",
+    "code_barre": null,
+    "created_at": "2026-04-02T21:12:43.218Z",
+    "updated_at": "2026-04-02T21:12:43.218Z",
+    "created_by": [
+      "aminata"
+    ]
+  }
+},
+{
+  "model": "produits.produit",
+  "pk": 14,
+  "fields": {
+    "nom": "Gel douche 500ml",
+    "description": "",
+    "categorie": 2,
+    "fournisseur": 2,
+    "prix_achat": "1200.00",
+    "prix_vente": "1800.00",
+    "quantite": 60,
+    "seuil_alerte": 12,
+    "image": "",
+    "code_barre": null,
+    "created_at": "2026-04-02T21:12:43.236Z",
+    "updated_at": "2026-04-02T21:12:43.236Z",
+    "created_by": [
+      "mohammed"
+    ]
+  }
+},
+{
+  "model": "produits.produit",
+  "pk": 15,
+  "fields": {
+    "nom": "Dentifrice Colgate",
+    "description": "",
+    "categorie": 2,
+    "fournisseur": 2,
+    "prix_achat": "800.00",
+    "prix_vente": "1200.00",
+    "quantite": 2,
+    "seuil_alerte": 10,
+    "image": "",
+    "code_barre": null,
+    "created_at": "2026-04-02T21:12:43.248Z",
+    "updated_at": "2026-04-02T21:12:43.559Z",
+    "created_by": [
+      "mohammed"
+    ]
+  }
+},
+{
+  "model": "produits.produit",
+  "pk": 16,
+  "fields": {
+    "nom": "Amoxicilline 500mg",
+    "description": "",
+    "categorie": 4,
+    "fournisseur": 3,
+    "prix_achat": "1500.00",
+    "prix_vente": "2200.00",
+    "quantite": 18,
+    "seuil_alerte": 8,
+    "image": "",
+    "code_barre": null,
+    "created_at": "2026-04-02T21:12:43.258Z",
+    "updated_at": "2026-04-02T21:12:43.467Z",
+    "created_by": [
+      "bachirou"
+    ]
+  }
+},
+{
+  "model": "produits.produit",
+  "pk": 17,
+  "fields": {
+    "nom": "Sérum physiologique",
+    "description": "",
+    "categorie": 4,
+    "fournisseur": 3,
+    "prix_achat": "300.00",
+    "prix_vente": "500.00",
+    "quantite": 90,
+    "seuil_alerte": 20,
+    "image": "",
+    "code_barre": null,
+    "created_at": "2026-04-02T21:12:43.268Z",
+    "updated_at": "2026-04-02T21:12:43.268Z",
+    "created_by": [
+      "bachirou"
+    ]
+  }
+},
+{
+  "model": "produits.produit",
+  "pk": 18,
+  "fields": {
+    "nom": "Chargeur USB-C",
+    "description": "",
+    "categorie": 3,
+    "fournisseur": 4,
+    "prix_achat": "3000.00",
+    "prix_vente": "5000.00",
+    "quantite": 52,
+    "seuil_alerte": 5,
+    "image": "",
+    "code_barre": null,
+    "created_at": "2026-04-02T21:12:43.278Z",
+    "updated_at": "2026-04-02T21:12:43.524Z",
+    "created_by": [
+      "aminata"
+    ]
+  }
+},
+{
+  "model": "produits.produit",
+  "pk": 19,
+  "fields": {
+    "nom": "Écouteurs Bluetooth",
+    "description": "",
+    "categorie": 3,
+    "fournisseur": 4,
+    "prix_achat": "8000.00",
+    "prix_vente": "13000.00",
+    "quantite": 15,
+    "seuil_alerte": 3,
+    "image": "",
+    "code_barre": null,
+    "created_at": "2026-04-02T21:12:43.290Z",
+    "updated_at": "2026-04-02T21:12:43.290Z",
+    "created_by": [
+      "aminata"
+    ]
+  }
+},
+{
+  "model": "produits.produit",
+  "pk": 20,
+  "fields": {
+    "nom": "Batterie externe 10000mAh",
+    "description": "",
+    "categorie": 3,
+    "fournisseur": 4,
+    "prix_achat": "12000.00",
+    "prix_vente": "18000.00",
+    "quantite": 45,
+    "seuil_alerte": 3,
+    "image": "",
+    "code_barre": null,
+    "created_at": "2026-04-02T21:12:43.297Z",
+    "updated_at": "2026-04-02T21:12:43.626Z",
+    "created_by": [
+      "mohammed"
+    ]
+  }
+},
+{
+  "model": "mouvements.mouvement",
+  "pk": 1,
+  "fields": {
+    "produit": 16,
+    "type_mouvement": "entree",
+    "quantite": 20,
+    "quantite_avant": 3,
+    "quantite_apres": 23,
+    "motif": "Réapprovisionnement mensuel",
+    "created_at": "2026-04-02T21:12:43.336Z",
+    "created_by": [
+      "mohammed"
+    ]
+  }
+},
+{
+  "model": "mouvements.mouvement",
+  "pk": 2,
+  "fields": {
+    "produit": 20,
+    "type_mouvement": "entree",
+    "quantite": 15,
+    "quantite_avant": 2,
+    "quantite_apres": 17,
+    "motif": "Commande fournisseur SODEPAL",
+    "created_at": "2026-04-02T21:12:43.366Z",
+    "created_by": [
+      "bachirou"
+    ]
+  }
+},
+{
+  "model": "mouvements.mouvement",
+  "pk": 3,
+  "fields": {
+    "produit": 10,
+    "type_mouvement": "entree",
+    "quantite": 50,
+    "quantite_avant": 45,
+    "quantite_apres": 95,
+    "motif": "Livraison Importex BF",
+    "created_at": "2026-04-02T21:12:43.400Z",
+    "created_by": [
+      "bachirou"
+    ]
+  }
+},
+{
+  "model": "mouvements.mouvement",
+  "pk": 4,
+  "fields": {
+    "produit": 12,
+    "type_mouvement": "entree",
+    "quantite": 10,
+    "quantite_avant": 200,
+    "quantite_apres": 210,
+    "motif": "Achat urgent pharmacie",
+    "created_at": "2026-04-02T21:12:43.427Z",
+    "created_by": [
+      "aminata"
+    ]
+  }
+},
+{
+  "model": "mouvements.mouvement",
+  "pk": 5,
+  "fields": {
+    "produit": 18,
+    "type_mouvement": "entree",
+    "quantite": 30,
+    "quantite_avant": 25,
+    "quantite_apres": 55,
+    "motif": "Réappro après inventaire",
+    "created_at": "2026-04-02T21:12:43.453Z",
+    "created_by": [
+      "mohammed"
+    ]
+  }
+},
+{
+  "model": "mouvements.mouvement",
+  "pk": 6,
+  "fields": {
+    "produit": 16,
+    "type_mouvement": "sortie",
+    "quantite": 5,
+    "quantite_avant": 23,
+    "quantite_apres": 18,
+    "motif": "Vente client boutique",
+    "created_at": "2026-04-02T21:12:43.484Z",
+    "created_by": [
+      "mohammed"
+    ]
+  }
+},
+{
+  "model": "mouvements.mouvement",
+  "pk": 7,
+  "fields": {
+    "produit": 10,
+    "type_mouvement": "sortie",
+    "quantite": 8,
+    "quantite_avant": 95,
+    "quantite_apres": 87,
+    "motif": "Vente en gros",
+    "created_at": "2026-04-02T21:12:43.513Z",
+    "created_by": [
+      "bachirou"
+    ]
+  }
+},
+{
+  "model": "mouvements.mouvement",
+  "pk": 8,
+  "fields": {
+    "produit": 18,
+    "type_mouvement": "sortie",
+    "quantite": 3,
+    "quantite_avant": 55,
+    "quantite_apres": 52,
+    "motif": "Vente détail",
+    "created_at": "2026-04-02T21:12:43.544Z",
+    "created_by": [
+      "aminata"
+    ]
+  }
+},
+{
+  "model": "mouvements.mouvement",
+  "pk": 9,
+  "fields": {
+    "produit": 15,
+    "type_mouvement": "sortie",
+    "quantite": 2,
+    "quantite_avant": 4,
+    "quantite_apres": 2,
+    "motif": "Commande restaurant",
+    "created_at": "2026-04-02T21:12:43.577Z",
+    "created_by": [
+      "mohammed"
+    ]
+  }
+},
+{
+  "model": "mouvements.mouvement",
+  "pk": 10,
+  "fields": {
+    "produit": 7,
+    "type_mouvement": "sortie",
+    "quantite": 10,
+    "quantite_avant": 18,
+    "quantite_apres": 8,
+    "motif": "Vente école",
+    "created_at": "2026-04-02T21:12:43.609Z",
+    "created_by": [
+      "aminata"
+    ]
+  }
+},
+{
+  "model": "mouvements.mouvement",
+  "pk": 11,
+  "fields": {
+    "produit": 20,
+    "type_mouvement": "ajustement",
+    "quantite": 45,
+    "quantite_avant": 17,
+    "quantite_apres": 45,
+    "motif": "Correction après inventaire physique",
+    "created_at": "2026-04-02T21:12:43.651Z",
+    "created_by": [
+      "mohammed"
+    ]
+  }
+},
+{
+  "model": "mouvements.mouvement",
+  "pk": 12,
+  "fields": {
+    "produit": 12,
+    "type_mouvement": "ajustement",
+    "quantite": 120,
+    "quantite_avant": 210,
+    "quantite_apres": 120,
+    "motif": "Mise à jour stock initial",
+    "created_at": "2026-04-02T21:12:43.681Z",
+    "created_by": [
+      "bachirou"
+    ]
+  }
+}
+]
