@@ -57,6 +57,9 @@
             transform: translateY(-2px);
             box-shadow: 0 8px 20px rgba(102,126,234,0.4);
         }
+        .field-error {
+            border-color: #dc3545 !important;
+        }
     </style>
 </head>
 <body>
@@ -77,41 +80,79 @@
                 <div class="col-md-6">
                     <label class="form-label fw-500" style="font-size:0.85rem">Prénom</label>
                     {{ form.first_name }}
+                    {% if form.first_name.errors %}
+                    <div class="text-danger mt-1" style="font-size:0.78rem">
+                        <i class="bi bi-exclamation-circle me-1"></i>
+                        {% for error in form.first_name.errors %}{{ error }}{% endfor %}
+                    </div>
+                    {% endif %}
                 </div>
                 <div class="col-md-6">
                     <label class="form-label fw-500" style="font-size:0.85rem">Nom</label>
                     {{ form.last_name }}
+                    {% if form.last_name.errors %}
+                    <div class="text-danger mt-1" style="font-size:0.78rem">
+                        <i class="bi bi-exclamation-circle me-1"></i>
+                        {% for error in form.last_name.errors %}{{ error }}{% endfor %}
+                    </div>
+                    {% endif %}
                 </div>
                 <div class="col-12">
                     <label class="form-label fw-500" style="font-size:0.85rem">Email</label>
                     {{ form.email }}
+                    {% if form.email.errors %}
+                    <div class="text-danger mt-1" style="font-size:0.78rem">
+                        <i class="bi bi-exclamation-circle me-1"></i>
+                        {% for error in form.email.errors %}{{ error }}{% endfor %}
+                    </div>
+                    {% endif %}
                 </div>
                 <div class="col-12">
                     <label class="form-label fw-500" style="font-size:0.85rem">
                         Nom d'utilisateur
                     </label>
                     {{ form.username }}
+                    {% if form.username.errors %}
+                    <div class="text-danger mt-1" style="font-size:0.78rem">
+                        <i class="bi bi-exclamation-circle me-1"></i>
+                        {% for error in form.username.errors %}{{ error }}{% endfor %}
+                    </div>
+                    {% endif %}
                 </div>
                 <div class="col-md-6">
                     <label class="form-label fw-500" style="font-size:0.85rem">
                         Mot de passe
                     </label>
                     {{ form.password1 }}
+                    {% if form.password1.errors %}
+                    <div class="text-danger mt-1" style="font-size:0.78rem">
+                        <i class="bi bi-exclamation-circle me-1"></i>
+                        {% for error in form.password1.errors %}{{ error }}{% endfor %}
+                    </div>
+                    {% endif %}
                 </div>
                 <div class="col-md-6">
                     <label class="form-label fw-500" style="font-size:0.85rem">
                         Confirmer
                     </label>
                     {{ form.password2 }}
-                </div>
-                {% if form.errors %}
-                <div class="col-12">
-                    <div class="alert alert-danger py-2" style="font-size:0.8rem;border-radius:10px">
+                    {% if form.password2.errors %}
+                    <div class="text-danger mt-1" style="font-size:0.78rem">
                         <i class="bi bi-exclamation-circle me-1"></i>
-                        Veuillez corriger les erreurs ci-dessus.
+                        {% for error in form.password2.errors %}{{ error }}{% endfor %}
+                    </div>
+                    {% endif %}
+                </div>
+
+                {% if form.non_field_errors %}
+                <div class="col-12">
+                    <div class="alert alert-danger py-2" style="font-size:0.85rem;border-radius:10px">
+                        <i class="bi bi-exclamation-circle me-1"></i>
+                        {% for error in form.non_field_errors %}{{ error }}{% endfor %}
                     </div>
                 </div>
                 {% endif %}
+
             </div>
 
             <button type="submit" class="btn btn-register text-white w-100 mt-4">
