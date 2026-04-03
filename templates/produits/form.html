@@ -101,9 +101,151 @@
                         <i class="bi bi-check-lg me-1"></i> {{ btn }}
                     </button>
                 </div>
+                <!-- SCANNER CODE-BARRES -->
+<div class="mt-4 p-3" style="background:#f8f9fa;border-radius:12px;border:2px dashed #dee2e6">
+    <div class="d-flex align-items-center gap-2 mb-3">
+        <div style="width:36px;height:36px;background:linear-gradient(135deg,#667eea,#764ba2);
+            border-radius:8px;display:flex;align-items:center;justify-content:center">
+            <i class="bi bi-upc-scan text-white"></i>
+        </div>
+        <div>
+            <div class="fw-500" style="font-size:0.9rem">Scanner code-barres</div>
+            <small class="text-muted">Utilisez votre caméra pour scanner automatiquement</small>
+        </div>
+        <button type="button" class="btn btn-outline-primary btn-sm ms-auto" id="btnScanner">
+            <i class="bi bi-camera me-1"></i> Activer caméra
+        </button>
+    </div>
+
+    <!-- Zone caméra -->
+    <div id="scannerContainer" style="display:none">
+        <div style="position:relative;border-radius:12px;overflow:hidden;background:#000">
+            <video id="scannerVideo" style="width:100%;max-height:250px;object-fit:cover" 
+                   playsinline autoplay></video>
+            <!-- Ligne de scan animée -->
+            <div style="position:absolute;top:0;left:0;right:0;height:2px;
+                background:linear-gradient(90deg,transparent,#667eea,transparent);
+                animation:scanLine 2s linear infinite"></div>
+            <!-- Cadre de visée -->
+            <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
+                width:200px;height:100px;border:2px solid #667eea;border-radius:8px;
+                box-shadow:0 0 0 9999px rgba(0,0,0,0.4)"></div>
+        </div>
+        <div class="d-flex gap-2 mt-2">
+            <div id="scanResult" class="flex-grow-1 p-2 text-center text-muted" 
+                 style="background:white;border-radius:8px;font-size:0.85rem">
+                <i class="bi bi-camera me-1"></i>Pointez vers un code-barres...
+            </div>
+            <button type="button" class="btn btn-outline-danger btn-sm" id="btnStopScan">
+                <i class="bi bi-x-lg"></i>
+            </button>
+        </div>
+    </div>
+</div>
+
+<style>
+@keyframes scanLine {
+    0% { top: 10%; }
+    50% { top: 90%; }
+    100% { top: 10%; }
+}
+</style>
             </form>
         </div>
     </div>
 </div>
 
+{% endblock %}
+
+{% block extra_js %}
+<!-- QuaggaJS — scanner code-barres -->
+<script src="https://cdn.jsdelivr.net/npm/quagga@0.12.1/dist/quagga.min.js"></script>
+<script>
+const btnScanner = document.getElementById('btnScanner');
+const btnStop = document.getElementById('btnStopScan');
+const scannerContainer = document.getElementById('scannerContainer');
+const scanResult = document.getElementById('scanResult');
+const codeBarre = document.getElementById('id_code_barre');
+
+let scanning = false;
+
+btnScanner.addEventListener('click', function() {
+    scannerContainer.style.display = 'block';
+    btnScanner.style.display = 'none';
+    startScanner();
+});
+
+btnStop.addEventListener('click', function() {
+    stopScanner();
+});
+
+function startScanner() {
+    scanning = true;
+    Quagga.init({
+        inputStream: {
+            name: "Live",
+            type: "LiveStream",
+            target: document.getElementById('scannerVideo'),
+            constraints: {
+                facingMode: "environment",
+                width: { min: 640 },
+                height: { min: 480 },
+            },
+        },
+        decoder: {
+            readers: [
+                "code_128_reader",
+                "ean_reader",
+                "ean_8_reader",
+                "code_39_reader",
+                "upc_reader",
+                "upc_e_reader",
+            ]
+        },
+        locate: true,
+    }, function(err) {
+        if (err) {
+            scanResult.innerHTML = '<i class="bi bi-exclamation-triangle text-warning me-1"></i>Caméra non disponible';
+            return;
+        }
+        Quagga.start();
+    });
+
+    Quagga.onDetected(function(result) {
+        const code = result.codeResult.code;
+        if (code && scanning) {
+            scanning = false;
+
+            // Remplir le champ code barre
+            if (codeBarre) {
+                codeBarre.value = code;
+                codeBarre.style.borderColor = '#28a745';
+                codeBarre.style.boxShadow = '0 0 0 0.2rem rgba(40,167,69,0.25)';
+            }
+
+            // Afficher résultat
+            scanResult.innerHTML = `
+                <i class="bi bi-check-circle-fill text-success me-1"></i>
+                <strong>Code détecté :</strong> ${code}
+            `;
+            scanResult.style.color = '#0f5132';
+            scanResult.style.background = '#d1e7dd';
+
+            // Vibration sur mobile
+            if (navigator.vibrate) navigator.vibrate(200);
+
+            // Arrêter après 1 seconde
+            setTimeout(() => stopScanner(), 1000);
+        }
+    });
+}
+
+function stopScanner() {
+    Quagga.stop();
+    scannerContainer.style.display = 'none';
+    btnScanner.style.display = 'block';
+    btnScanner.innerHTML = '<i class="bi bi-camera me-1"></i> Scanner à nouveau';
+    scanning = false;
+}
+</script>
 {% endblock %}
