@@ -1,0 +1,166 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ produit.nom }} — StockBF{% endblock %}
+{% block page_title %}Détail produit{% endblock %}
+
+{% block content %}
+
+<div class="row g-4">
+
+    <!-- Infos produit -->
+    <div class="col-xl-4">
+        <div class="table-card p-4 text-center">
+            {% if produit.image %}
+            <img src="{{ produit.image.url }}" class="img-fluid mb-3"
+                 style="border-radius:16px;max-height:200px;object-fit:cover;width:100%">
+            {% else %}
+            <div class="mb-3" style="height:160px;background:#f0f2f5;border-radius:16px;
+                display:flex;align-items:center;justify-content:center">
+                <i class="bi bi-box-seam" style="font-size:4rem;color:#dee2e6"></i>
+            </div>
+            {% endif %}
+
+            <h4 class="fw-700">{{ produit.nom }}</h4>
+            <p class="text-muted">{{ produit.description|default:"Aucune description" }}</p>
+
+            {% if produit.est_en_alerte %}
+            <div class="alert alert-warning py-2">
+                <i class="bi bi-exclamation-triangle-fill me-2"></i>
+                Stock en alerte ! ({{ produit.quantite }} unités)
+            </div>
+            {% endif %}
+
+            <div class="d-flex gap-2 justify-content-center mt-3">
+                <a href="{% url 'produit_modifier' produit.pk %}" class="btn btn-primary">
+                    <i class="bi bi-pencil me-1"></i> Modifier
+                </a>
+                <a href="{% url 'mouvement_creer' %}?produit={{ produit.pk }}"
+                   class="btn btn-outline-primary">
+                    <i class="bi bi-arrow-left-right me-1"></i> Mouvement
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Détails -->
+    <div class="col-xl-8">
+        <div class="table-card p-4 mb-4">
+            <h6 class="fw-600 mb-3">
+                <i class="bi bi-info-circle me-2" style="color:#667eea"></i>
+                Informations
+            </h6>
+            <div class="row g-3">
+                <div class="col-md-6">
+                    <div style="background:#f8f9fa;border-radius:12px;padding:1rem">
+                        <div class="text-muted" style="font-size:0.75rem">CATÉGORIE</div>
+                        <div class="fw-500">{{ produit.categorie|default:"—" }}</div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div style="background:#f8f9fa;border-radius:12px;padding:1rem">
+                        <div class="text-muted" style="font-size:0.75rem">FOURNISSEUR</div>
+                        <div class="fw-500">{{ produit.fournisseur|default:"—" }}</div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div style="background:#f8f9fa;border-radius:12px;padding:1rem">
+                        <div class="text-muted" style="font-size:0.75rem">PRIX ACHAT</div>
+                        <div class="fw-600 text-primary">{{ produit.prix_achat|floatformat:0 }} FCFA</div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div style="background:#f8f9fa;border-radius:12px;padding:1rem">
+                        <div class="text-muted" style="font-size:0.75rem">PRIX VENTE</div>
+                        <div class="fw-600 text-success">{{ produit.prix_vente|floatformat:0 }} FCFA</div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div style="background:#f8f9fa;border-radius:12px;padding:1rem">
+                        <div class="text-muted" style="font-size:0.75rem">VALEUR STOCK</div>
+                        <div class="fw-600 text-warning">{{ produit.valeur_stock|floatformat:0 }} FCFA</div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div style="background:#f8f9fa;border-radius:12px;padding:1rem">
+                        <div class="text-muted" style="font-size:0.75rem">QUANTITÉ</div>
+                        <div class="fw-700 fs-4
+                            {% if produit.est_en_alerte %}text-danger{% else %}text-success{% endif %}">
+                            {{ produit.quantite }} unités
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div style="background:#f8f9fa;border-radius:12px;padding:1rem">
+                        <div class="text-muted" style="font-size:0.75rem">SEUIL ALERTE</div>
+                        <div class="fw-500">≤ {{ produit.seuil_alerte }} unités</div>
+                    </div>
+                </div>
+                {% if produit.code_barre %}
+                <div class="col-md-12">
+                    <div style="background:#f8f9fa;border-radius:12px;padding:1rem">
+                        <div class="text-muted" style="font-size:0.75rem">CODE BARRE</div>
+                        <div class="fw-500 font-monospace">{{ produit.code_barre }}</div>
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+
+        <!-- Historique mouvements -->
+        <div class="table-card">
+            <div class="p-3 border-bottom">
+                <h6 class="mb-0 fw-600">
+                    <i class="bi bi-clock-history me-2" style="color:#667eea"></i>
+                    Derniers mouvements
+                </h6>
+            </div>
+            <div class="table-responsive">
+                <table class="table mb-0">
+                    <thead>
+                        <tr>
+                            <th>Type</th>
+                            <th>Avant</th>
+                            <th>Quantité</th>
+                            <th>Après</th>
+                            <th>Par</th>
+                            <th>Date</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for m in mouvements %}
+                        <tr>
+                            <td>
+                                {% if m.type_mouvement == 'entree' %}
+                                <span class="badge-ok"><i class="bi bi-arrow-down-circle me-1"></i>Entrée</span>
+                                {% elif m.type_mouvement == 'sortie' %}
+                                <span class="badge-alerte"><i class="bi bi-arrow-up-circle me-1"></i>Sortie</span>
+                                {% else %}
+                                <span class="badge bg-info text-white">Ajust.</span>
+                                {% endif %}
+                            </td>
+                            <td class="text-muted">{{ m.quantite_avant }}</td>
+                            <td class="fw-600">{{ m.quantite }}</td>
+                            <td class="fw-600
+                                {% if m.quantite_apres <= produit.seuil_alerte %}text-danger{% else %}text-success{% endif %}">
+                                {{ m.quantite_apres }}
+                            </td>
+                            <td class="text-muted">{{ m.created_by.username|default:"—" }}</td>
+                            <td class="text-muted" style="font-size:0.8rem">
+                                {{ m.created_at|date:"d/m/Y H:i" }}
+                            </td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="6" class="text-center text-muted py-3">
+                                Aucun mouvement pour ce produit
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

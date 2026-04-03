@@ -1,0 +1,155 @@
+{% extends 'base.html' %}
+
+{% block title %}Prévisions — StockBF{% endblock %}
+{% block page_title %}Prévision de réapprovisionnement{% endblock %}
+
+{% block content %}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <div>
+        <h4 class="fw-700 mb-1">
+            🧠 Prévision Intelligente
+        </h4>
+        <p class="text-muted mb-0" style="font-size:0.85rem">
+            Analyse basée sur l'historique des 30 derniers jours
+        </p>
+    </div>
+</div>
+
+<!-- LÉGENDE RISQUES -->
+<div class="row g-3 mb-4">
+    <div class="col-md-3">
+        <div class="kpi-card" style="background:linear-gradient(135deg,#667eea,#764ba2)">
+            <div class="kpi-value">{{ previsions|length }}</div>
+            <div class="kpi-label">
+                <i class="bi bi-graph-up me-1"></i>Produits analysés
+            </div>
+            <i class="bi bi-graph-up kpi-icon"></i>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="kpi-card" style="background:linear-gradient(135deg,#dc3545,#a71d2a)">
+            <div class="kpi-value">{{ nb_critique }}</div>
+            <div class="kpi-label">
+                <i class="bi bi-exclamation-octagon me-1"></i>Risque critique
+            </div>
+            <i class="bi bi-exclamation-octagon kpi-icon"></i>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="kpi-card" style="background:linear-gradient(135deg,#fd7e14,#dc6502)">
+            <div class="kpi-value">{{ nb_eleve }}</div>
+            <div class="kpi-label">
+                <i class="bi bi-exclamation-triangle me-1"></i>Risque élevé
+            </div>
+            <i class="bi bi-exclamation-triangle kpi-icon"></i>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="kpi-card bg-gradient-green">
+            <div class="kpi-value">{{ nb_ok }}</div>
+            <div class="kpi-label">
+                <i class="bi bi-check-circle me-1"></i>Stock suffisant
+            </div>
+            <i class="bi bi-check-circle kpi-icon"></i>
+        </div>
+    </div>
+</div>
+
+<!-- TABLEAU PRÉVISIONS -->
+<div class="table-card">
+    <div class="p-4 border-bottom">
+        <h6 class="mb-0 fw-600">
+            <i class="bi bi-table me-2" style="color:#667eea"></i>
+            Analyse détaillée par produit
+        </h6>
+    </div>
+    <div class="table-responsive">
+        <table class="table mb-0">
+            <thead>
+                <tr>
+                    <th>Produit</th>
+                    <th>Stock actuel</th>
+                    <th>Conso/jour</th>
+                    <th>Conso/semaine</th>
+                    <th>Jours restants</th>
+                    <th>À commander</th>
+                    <th>Risque</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for p in previsions %}
+                <tr>
+                    <td>
+                        <div class="fw-500">{{ p.produit.nom }}</div>
+                        <small class="text-muted">{{ p.produit.categorie }}</small>
+                    </td>
+                    <td>
+                        <span class="fw-600
+                            {% if p.produit.est_en_alerte %}text-danger
+                            {% else %}text-success{% endif %}">
+                            {{ p.produit.quantite }} unités
+                        </span>
+                    </td>
+                    <td class="text-muted">{{ p.conso_journaliere }}</td>
+                    <td class="text-muted">{{ p.conso_hebdo }}</td>
+                    <td>
+                        {% if p.jours_restants == 999 %}
+                            <span class="text-muted">—</span>
+                        {% elif p.jours_restants <= 7 %}
+                            <span class="fw-700 text-danger">
+                                <i class="bi bi-alarm me-1"></i>{{ p.jours_restants }}j
+                            </span>
+                        {% elif p.jours_restants <= 15 %}
+                            <span class="fw-600 text-warning">{{ p.jours_restants }}j</span>
+                        {% else %}
+                            <span class="text-success">{{ p.jours_restants }}j</span>
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% if p.a_commander > 0 %}
+                        <span class="fw-600 text-primary">{{ p.a_commander }} unités</span>
+                        {% else %}
+                        <span class="text-muted">—</span>
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% if p.risque == 'critique' %}
+                        <span style="background:#f8d7da;color:#842029;padding:4px 10px;
+                            border-radius:20px;font-size:0.75rem;font-weight:600">
+                            🔴 Critique
+                        </span>
+                        {% elif p.risque == 'eleve' %}
+                        <span style="background:#fff3cd;color:#664d03;padding:4px 10px;
+                            border-radius:20px;font-size:0.75rem;font-weight:600">
+                            🟠 Élevé
+                        </span>
+                        {% elif p.risque == 'moyen' %}
+                        <span style="background:#cff4fc;color:#055160;padding:4px 10px;
+                            border-radius:20px;font-size:0.75rem;font-weight:600">
+                            🟡 Moyen
+                        </span>
+                        {% else %}
+                        <span style="background:#d1e7dd;color:#0f5132;padding:4px 10px;
+                            border-radius:20px;font-size:0.75rem;font-weight:600">
+                            🟢 OK
+                        </span>
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% if p.a_commander > 0 %}
+                        <a href="{% url 'mouvement_creer' %}?produit={{ p.produit.pk }}"
+                           class="btn btn-sm btn-primary">
+                            <i class="bi bi-plus"></i> Réappro
+                        </a>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+{% endblock %}

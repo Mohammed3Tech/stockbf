@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% block title %}Catégories — StockBF{% endblock %}
+{% block page_title %}Catégories{% endblock %}
+{% block content %}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h4 class="fw-700 mb-0">Catégories</h4>
+    <a href="{% url 'categorie_creer' %}" class="btn btn-primary">
+        <i class="bi bi-plus-lg me-1"></i> Nouvelle catégorie
+    </a>
+</div>
+
+<div class="row g-3">
+    {% for cat in categories %}
+    <div class="col-md-4">
+        <div class="table-card p-3">
+            <div class="d-flex align-items-center gap-3">
+                <div style="width:44px;height:44px;
+                    background:linear-gradient(135deg,#667eea,#764ba2);
+                    border-radius:10px;display:flex;align-items:center;
+                    justify-content:center;color:white">
+                    <i class="bi bi-tag-fill"></i>
+                </div>
+                <div>
+                    <div class="fw-600">{{ cat.nom }}</div>
+                    <small class="text-muted">
+                        {{ cat.produits.count }} produit{{ cat.produits.count|pluralize }}
+                    </small>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% empty %}
+    <div class="col-12 text-center py-5 text-muted">
+        <i class="bi bi-tags fs-1 d-block mb-2"></i>
+        Aucune catégorie créée
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

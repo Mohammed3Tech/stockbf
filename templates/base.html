@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}StockBF — Gestion de Stock{% endblock %}</title>
+
+    <!-- Bootstrap 5 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        * { font-family: 'Inter', sans-serif; }
+
+        body { background: #f0f2f5; }
+
+        /* Sidebar */
+        .sidebar {
+            width: 260px;
+            min-height: 100vh;
+            background: linear-gradient(180deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            position: fixed;
+            top: 0; left: 0;
+            z-index: 1000;
+            transition: all 0.3s;
+            overflow-y: auto;
+        }
+
+        .sidebar-brand {
+            padding: 1.5rem;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .sidebar-brand h4 {
+            color: #fff;
+            font-weight: 700;
+            margin: 0;
+            font-size: 1.2rem;
+        }
+
+        .sidebar-brand span {
+            color: #e94560;
+            font-size: 0.75rem;
+            display: block;
+            margin-top: 2px;
+        }
+
+        .sidebar .nav-link {
+            color: rgba(255,255,255,0.7);
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            margin: 2px 10px;
+            transition: all 0.2s;
+            font-size: 0.9rem;
+        }
+
+        .sidebar .nav-link:hover,
+        .sidebar .nav-link.active {
+            background: rgba(233, 69, 96, 0.2);
+            color: #fff;
+            transform: translateX(4px);
+        }
+
+        .sidebar .nav-link i {
+            width: 20px;
+            margin-right: 8px;
+        }
+
+        .sidebar-section {
+            padding: 1rem 1.5rem 0.3rem;
+            color: rgba(255,255,255,0.35);
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 600;
+        }
+
+        /* Main content */
+        .main-content {
+            margin-left: 260px;
+            min-height: 100vh;
+        }
+
+        /* Topbar */
+        .topbar {
+            background: #fff;
+            padding: 1rem 1.5rem;
+            border-bottom: 1px solid #e9ecef;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 999;
+        }
+
+        /* Cards KPI */
+        .kpi-card {
+            border: none;
+            border-radius: 16px;
+            padding: 1.5rem;
+            color: white;
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.2s;
+        }
+
+        .kpi-card:hover { transform: translateY(-4px); }
+
+        .kpi-card .kpi-icon {
+            font-size: 2.5rem;
+            opacity: 0.25;
+            position: absolute;
+            right: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        .kpi-card .kpi-value {
+            font-size: 2rem;
+            font-weight: 700;
+            line-height: 1;
+        }
+
+        .kpi-card .kpi-label {
+            font-size: 0.85rem;
+            opacity: 0.85;
+            margin-top: 4px;
+        }
+
+        .bg-gradient-blue {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        .bg-gradient-red {
+            background: linear-gradient(135deg, #f093fb 0%, #e94560 100%);
+        }
+        .bg-gradient-green {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+        }
+        .bg-gradient-orange {
+            background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+        }
+
+        /* Table */
+        .table-card {
+            background: #fff;
+            border-radius: 16px;
+            border: none;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+            overflow: hidden;
+        }
+
+        .table thead th {
+            background: #f8f9fa;
+            border: none;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: #6c757d;
+            padding: 1rem;
+        }
+
+        .table tbody td {
+            padding: 0.85rem 1rem;
+            vertical-align: middle;
+            border-color: #f0f2f5;
+            font-size: 0.9rem;
+        }
+
+        .table tbody tr:hover { background: #f8f9fa; }
+
+        /* Badges */
+        .badge-alerte {
+            background: #fff3cd;
+            color: #856404;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 500;
+        }
+
+        .badge-ok {
+            background: #d1e7dd;
+            color: #0f5132;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 500;
+        }
+
+        /* Boutons */
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border: none;
+            border-radius: 8px;
+            font-weight: 500;
+        }
+
+        .btn-primary:hover {
+            background: linear-gradient(135deg, #5a6fd6, #6a3f96);
+            transform: translateY(-1px);
+        }
+
+        .btn-danger {
+            background: linear-gradient(135deg, #e94560, #c73652);
+            border: none;
+            border-radius: 8px;
+        }
+
+        /* Alerts */
+        .alert { border: none; border-radius: 12px; }
+
+        /* Forms */
+        .form-control:focus, .form-select:focus {
+            border-color: #667eea;
+            box-shadow: 0 0 0 0.2rem rgba(102,126,234,0.15);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .sidebar { transform: translateX(-260px); }
+            .sidebar.show { transform: translateX(0); }
+            .main-content { margin-left: 0; }
+        }
+
+        /* Alerte navbar */
+        .alerte-badge {
+            background: #e94560;
+            color: white;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            font-size: 0.65rem;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+        }
+    </style>
+    {% block extra_css %}{% endblock %}
+</head>
+<body>
+
+<!-- SIDEBAR -->
+<div class="sidebar" id="sidebar">
+    <div class="sidebar-brand">
+        <h4><i class="bi bi-box-seam-fill" style="color:#e94560"></i> StockBF</h4>
+        <span>Gestion de Stock — Burkina Faso</span>
+    </div>
+
+    <nav class="mt-3">
+        <div class="sidebar-section">Principal</div>
+        <a href="{% url 'dashboard' %}" class="nav-link {% if request.resolver_match.url_name == 'dashboard' %}active{% endif %}">
+            <i class="bi bi-speedometer2"></i> Dashboard
+        </a>
+
+        <div class="sidebar-section">Stock</div>
+        <a href="{% url 'produit_liste' %}" class="nav-link {% if 'produit' in request.resolver_match.url_name %}active{% endif %}">
+            <i class="bi bi-box-seam"></i> Produits
+        </a>
+        <a href="{% url 'mouvement_creer' %}" class="nav-link {% if 'mouvement' in request.resolver_match.url_name %}active{% endif %}">
+            <i class="bi bi-arrow-left-right"></i> Mouvements
+            {% if nb_alertes and nb_alertes > 0 %}
+                <span class="alerte-badge ms-1">{{ nb_alertes }}</span>
+            {% endif %}
+        </a>
+        <a href="{% url 'mouvement_liste' %}" class="nav-link">
+            <i class="bi bi-clock-history"></i> Historique
+        </a>
+        <a href="{% url 'prevision' %}" class="nav-link {% if request.resolver_match.url_name == 'prevision' %}active{% endif %}">
+    <i class="bi bi-graph-up-arrow"></i> Prévisions
+        </a>
+
+        <div class="sidebar-section">Référentiels</div>
+        <a href="{% url 'categorie_liste' %}" class="nav-link">
+            <i class="bi bi-tags"></i> Catégories
+        </a>
+        <a href="{% url 'fournisseur_liste' %}" class="nav-link">
+            <i class="bi bi-truck"></i> Fournisseurs
+        </a>
+        <div class="sidebar-section">Export</div>
+<a href="{% url 'export_csv' %}" class="nav-link">
+    <i class="bi bi-file-earmark-spreadsheet"></i> Export CSV
+</a>
+<a href="{% url 'export_pdf' %}" class="nav-link">
+    <i class="bi bi-file-earmark-pdf"></i> Export PDF
+</a>
+
+        <div class="sidebar-section mt-3">Compte</div>
+        <a href="{% url 'profil' %}" class="nav-link">
+            <i class="bi bi-person-circle"></i> Mon profil
+        </a>
+        <a href="{% url 'logout' %}" class="nav-link text-danger">
+            <i class="bi bi-box-arrow-left"></i> Déconnexion
+        </a>
+    </nav>
+</div>
+
+<!-- MAIN CONTENT -->
+<div class="main-content">
+
+    <!-- TOPBAR -->
+    <div class="topbar">
+        <div class="d-flex align-items-center gap-3">
+            <button class="btn btn-sm btn-light d-md-none" onclick="toggleSidebar()">
+                <i class="bi bi-list fs-5"></i>
+            </button>
+            <div>
+                <span class="text-muted" style="font-size:0.85rem">
+                    {% block page_title %}Tableau de bord{% endblock %}
+                </span>
+            </div>
+        </div>
+        <div class="d-flex align-items-center gap-3">
+            {% if nb_alertes and nb_alertes > 0 %}
+            <a href="{% url 'produit_liste' %}" class="btn btn-sm btn-warning">
+                <i class="bi bi-exclamation-triangle-fill"></i>
+                {{ nb_alertes }} alerte{{ nb_alertes|pluralize }}
+            </a>
+            {% endif %}
+            <div class="d-flex align-items-center gap-2">
+                <div style="width:36px;height:36px;background:linear-gradient(135deg,#667eea,#764ba2);
+                    border-radius:50%;display:flex;align-items:center;justify-content:center;color:white;font-weight:600">
+                    {{ request.user.first_name|first|upper }}{{ request.user.last_name|first|upper }}
+                </div>
+                <div style="font-size:0.85rem">
+                    <div style="font-weight:500">{{ request.user.get_full_name|default:request.user.username }}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MESSAGES -->
+    <div class="px-4 pt-3">
+        {% for message in messages %}
+        <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+            <i class="bi bi-{% if message.tags == 'success' %}check-circle{% elif message.tags == 'error' or message.tags == 'danger' %}exclamation-circle{% else %}info-circle{% endif %}-fill me-2"></i>
+            {{ message }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+        {% endfor %}
+    </div>
+
+    <!-- PAGE CONTENT -->
+    <div class="p-4">
+        {% block content %}{% endblock %}
+    </div>
+</div>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<!-- Chart.js -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+
+<script>
+function toggleSidebar() {
+    document.getElementById('sidebar').classList.toggle('show');
+}
+</script>
+
+{% block extra_js %}{% endblock %}
+</body>
+</html>

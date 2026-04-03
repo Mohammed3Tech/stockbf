@@ -1,0 +1,257 @@
+{% extends 'base.html' %}
+
+{% block title %}Dashboard — StockBF{% endblock %}
+{% block page_title %}Tableau de bord{% endblock %}
+
+{% block content %}
+
+<!-- KPI CARDS -->
+<div class="row g-4 mb-4">
+    <div class="col-xl-3 col-md-6">
+        <div class="kpi-card bg-gradient-blue">
+            <div class="kpi-value">{{ total_produits }}</div>
+            <div class="kpi-label"><i class="bi bi-box-seam me-1"></i>Produits en stock</div>
+            <i class="bi bi-box-seam kpi-icon"></i>
+        </div>
+    </div>
+    <div class="col-xl-3 col-md-6">
+        <div class="kpi-card bg-gradient-red">
+            <div class="kpi-value">{{ nb_alertes }}</div>
+            <div class="kpi-label"><i class="bi bi-exclamation-triangle me-1"></i>Alertes stock faible</div>
+            <i class="bi bi-exclamation-triangle kpi-icon"></i>
+        </div>
+    </div>
+    <div class="col-xl-3 col-md-6">
+        <div class="kpi-card bg-gradient-green">
+            <div class="kpi-value">{{ valeur_totale|floatformat:0 }}</div>
+            <div class="kpi-label"><i class="bi bi-currency-exchange me-1"></i>Valeur stock (FCFA)</div>
+            <i class="bi bi-currency-exchange kpi-icon"></i>
+        </div>
+    </div>
+    <div class="col-xl-3 col-md-6">
+        <div class="kpi-card bg-gradient-orange">
+            <div class="kpi-value">{{ categories }}</div>
+            <div class="kpi-label"><i class="bi bi-tags me-1"></i>Catégories</div>
+            <i class="bi bi-tags kpi-icon"></i>
+        </div>
+    </div>
+</div>
+
+<!-- GRAPHIQUES -->
+<div class="row g-4 mb-4">
+    <div class="col-xl-8">
+        <div class="table-card p-4">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <h6 class="fw-600 mb-0">
+                    <i class="bi bi-bar-chart-fill me-2" style="color:#667eea"></i>
+                    Niveau de stock par produit
+                </h6>
+            </div>
+            <canvas id="stockChart" height="120"></canvas>
+        </div>
+    </div>
+    <div class="col-xl-4">
+        <div class="table-card p-4">
+            <h6 class="fw-600 mb-3">
+                <i class="bi bi-pie-chart-fill me-2" style="color:#e94560"></i>
+                Répartition par catégorie
+            </h6>
+            <canvas id="categorieChart" height="220"></canvas>
+        </div>
+    </div>
+</div>
+
+<!-- ALERTES + HISTORIQUE -->
+<div class="row g-4">
+
+    <!-- Alertes stock faible -->
+    <div class="col-xl-5">
+        <div class="table-card">
+            <div class="p-4 border-bottom d-flex justify-content-between align-items-center">
+                <h6 class="mb-0 fw-600">
+                    <i class="bi bi-exclamation-triangle-fill text-warning me-2"></i>
+                    Produits en alerte
+                </h6>
+                <span class="badge bg-warning text-dark">{{ nb_alertes }}</span>
+            </div>
+            {% if produits_alerte %}
+            <div class="table-responsive">
+                <table class="table mb-0">
+                    <thead>
+                        <tr>
+                            <th>Produit</th>
+                            <th>Quantité</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for p in produits_alerte %}
+                        <tr>
+                            <td>
+                                <div class="fw-500">{{ p.nom }}</div>
+                                <small class="text-muted">{{ p.categorie }}</small>
+                            </td>
+                            <td>
+                                <span class="badge-alerte">
+                                    <i class="bi bi-exclamation-triangle-fill me-1"></i>
+                                    {{ p.quantite }} unités
+                                </span>
+                            </td>
+                            <td>
+                                <a href="{% url 'mouvement_creer' %}?produit={{ p.pk }}"
+                                   class="btn btn-sm btn-primary">
+                                    <i class="bi bi-plus"></i> Réappro
+                                </a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            {% else %}
+            <div class="p-4 text-center text-muted">
+                <i class="bi bi-check-circle-fill text-success fs-2 d-block mb-2"></i>
+                Tous les stocks sont suffisants !
+            </div>
+            {% endif %}
+        </div>
+    </div>
+
+    <!-- Derniers mouvements -->
+    <div class="col-xl-7">
+        <div class="table-card">
+            <div class="p-4 border-bottom d-flex justify-content-between align-items-center">
+                <h6 class="mb-0 fw-600">
+                    <i class="bi bi-clock-history me-2" style="color:#667eea"></i>
+                    Derniers mouvements
+                </h6>
+                <a href="{% url 'mouvement_liste' %}" class="btn btn-sm btn-outline-secondary">
+                    Voir tout
+                </a>
+            </div>
+            <div class="table-responsive">
+                <table class="table mb-0">
+                    <thead>
+                        <tr>
+                            <th>Produit</th>
+                            <th>Type</th>
+                            <th>Qté</th>
+                            <th>Par</th>
+                            <th>Date</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for m in derniers_mouvements %}
+                        <tr>
+                            <td class="fw-500">{{ m.produit.nom }}</td>
+                            <td>
+                                {% if m.type_mouvement == 'entree' %}
+                                    <span class="badge-ok"><i class="bi bi-arrow-down-circle me-1"></i>Entrée</span>
+                                {% elif m.type_mouvement == 'sortie' %}
+                                    <span class="badge-alerte"><i class="bi bi-arrow-up-circle me-1"></i>Sortie</span>
+                                {% else %}
+                                    <span class="badge bg-info text-white">Ajustement</span>
+                                {% endif %}
+                            </td>
+                            <td class="fw-600">{{ m.quantite }}</td>
+                            <td class="text-muted">{{ m.created_by.username|default:"—" }}</td>
+                            <td class="text-muted" style="font-size:0.8rem">
+                                {{ m.created_at|date:"d/m/Y H:i" }}
+                            </td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="5" class="text-center text-muted py-4">
+                                Aucun mouvement enregistré
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block extra_js %}
+<script>
+// Données depuis Django
+const produits = [
+    {% for p in produits|slice:":10" %}
+    { nom: "{{ p.nom|truncatechars:15 }}", qte: {{ p.quantite }}, alerte: {{ p.seuil_alerte }} },
+    {% endfor %}
+];
+
+// Graphique barres — stock par produit
+const ctxStock = document.getElementById('stockChart').getContext('2d');
+new Chart(ctxStock, {
+    type: 'bar',
+    data: {
+        labels: produits.map(p => p.nom),
+        datasets: [{
+            label: 'Quantité en stock',
+            data: produits.map(p => p.qte),
+            backgroundColor: produits.map(p =>
+                p.qte <= p.alerte ? 'rgba(233,69,96,0.8)' : 'rgba(102,126,234,0.8)'
+            ),
+            borderRadius: 8,
+            borderSkipped: false,
+        }]
+    },
+    options: {
+        responsive: true,
+        plugins: {
+            legend: { display: false },
+            tooltip: {
+                callbacks: {
+                    label: ctx => ` ${ctx.raw} unités`
+                }
+            }
+        },
+        scales: {
+            y: { beginAtZero: true, grid: { color: 'rgba(0,0,0,0.05)' } },
+            x: { grid: { display: false } }
+        }
+    }
+});
+
+// Graphique donut — catégories
+const categoriesData = [
+    {% for p in produits %}
+    "{{ p.categorie.nom|default:'Sans catégorie' }}",
+    {% endfor %}
+];
+
+const countCat = {};
+categoriesData.forEach(c => countCat[c] = (countCat[c] || 0) + 1);
+
+const ctxCat = document.getElementById('categorieChart').getContext('2d');
+new Chart(ctxCat, {
+    type: 'doughnut',
+    data: {
+        labels: Object.keys(countCat),
+        datasets: [{
+            data: Object.values(countCat),
+            backgroundColor: [
+                '#667eea','#e94560','#4facfe',
+                '#43e97b','#f093fb','#ffd700'
+            ],
+            borderWidth: 0,
+            hoverOffset: 8
+        }]
+    },
+    options: {
+        responsive: true,
+        cutout: '65%',
+        plugins: {
+            legend: {
+                position: 'bottom',
+                labels: { font: { size: 11 }, padding: 12 }
+            }
+        }
+    }
+});
+</script>
+{% endblock %}

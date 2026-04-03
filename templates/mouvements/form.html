@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+
+{% block title %}Nouveau mouvement — StockBF{% endblock %}
+{% block page_title %}Enregistrer un mouvement{% endblock %}
+
+{% block content %}
+
+<div class="row justify-content-center">
+    <div class="col-xl-6">
+        <div class="table-card p-4">
+
+            <div class="d-flex align-items-center gap-3 mb-4">
+                <div style="width:48px;height:48px;
+                    background:linear-gradient(135deg,#667eea,#764ba2);
+                    border-radius:12px;display:flex;align-items:center;justify-content:center">
+                    <i class="bi bi-arrow-left-right text-white fs-5"></i>
+                </div>
+                <div>
+                    <h5 class="mb-0 fw-600">Mouvement de stock</h5>
+                    <small class="text-muted">Entrée, sortie ou ajustement</small>
+                </div>
+            </div>
+
+            <form method="POST">
+                {% csrf_token %}
+                <div class="row g-3">
+                    <div class="col-12">
+                        <label class="form-label fw-500">Produit *</label>
+                        {{ form.produit }}
+                    </div>
+                    <div class="col-12">
+                        <label class="form-label fw-500">Type de mouvement *</label>
+                        {{ form.type_mouvement }}
+                    </div>
+                    <div class="col-12">
+                        <label class="form-label fw-500">Quantité *</label>
+                        {{ form.quantite }}
+                    </div>
+                    <div class="col-12">
+                        <label class="form-label fw-500">Motif</label>
+                        {{ form.motif }}
+                    </div>
+                </div>
+
+                <hr class="my-4">
+
+                <div class="d-flex gap-3 justify-content-end">
+                    <a href="{% url 'mouvement_liste' %}"
+                       class="btn btn-outline-secondary">
+                        <i class="bi bi-x-lg me-1"></i> Annuler
+                    </a>
+                    <button type="submit" class="btn btn-primary px-4">
+                        <i class="bi bi-check-lg me-1"></i> Enregistrer
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
