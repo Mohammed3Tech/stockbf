@@ -1,3 +1,5 @@
+import re
+
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
@@ -24,9 +26,17 @@ class InscriptionForm(UserCreationForm):
         widgets = {
             'username': forms.TextInput(attrs={
                 'class': 'form-control',
-                'placeholder': 'Nom utilisateur'
+                'placeholder': 'Ex: Ali123'
             }),
         }
+
+    def clean_username(self):
+        username = self.cleaned_data.get('username')
+        if not re.match(r'^[\w\d@.+\-_]+$', username):
+            raise forms.ValidationError(
+                "Le nom d'utilisateur ne peut contenir que des lettres, chiffres et @/./+/-/_"
+        )
+        return username
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
