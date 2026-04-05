@@ -71,26 +71,26 @@ class CategorieForm(forms.ModelForm):
         }
 
 
+
 class FournisseurForm(forms.ModelForm):
+    nom = forms.CharField(widget=forms.TextInput(attrs={
+        'class': 'form-control',
+        'placeholder': 'Nom du fournisseur'
+    }))
+    telephone = forms.CharField(required=False, widget=forms.TextInput(attrs={
+        'class': 'form-control',
+        'placeholder': '+226 XX XX XX XX'
+    }))
+    email = forms.EmailField(required=False, widget=forms.EmailInput(attrs={
+        'class': 'form-control',
+        'placeholder': 'email@example.com'
+    }))
+    adresse = forms.CharField(required=False, widget=forms.Textarea(attrs={
+        'class': 'form-control',
+        'rows': 2,
+        'placeholder': 'Adresse complète'
+    }))
+
     class Meta:
         model = Fournisseur
         fields = ['nom', 'telephone', 'email', 'adresse']
-        widgets = {
-            'nom': forms.TextInput(attrs={
-                'class': 'form-control',
-                'placeholder': 'Nom du fournisseur'
-            }),
-            'telephone': forms.TextInput(attrs={
-                'class': 'form-control',
-                'placeholder': '+226 XX XX XX XX'
-            }),
-            'email': forms.EmailInput(attrs={
-                'class': 'form-control',
-                'placeholder': 'email@example.com'
-            }),
-            'adresse': forms.Textarea(attrs={
-                'class': 'form-control',
-                'rows': 2,
-                'placeholder': 'Adresse complète'
-            }),
-        }
