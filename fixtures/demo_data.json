@@ -54,8 +54,8 @@
   "model": "sessions.session",
   "pk": "rq7ectzl34y7d4ncvp4zbvwx5xubj2yn",
   "fields": {
-    "session_data": ".eJxVjDsOwjAQBe_iGlnxL1lT0nMGa9de4wCypTipEHeHSCmgfTPzXiLgtpawdV7CnMRZKHH63Qjjg-sO0h3rrcnY6rrMJHdFHrTLa0v8vBzu30HBXr61tQCkBkDvNE2kSOWMk7MRwWJmtqM2zOSjSYSOtFd5BAIzeJd1YhDvD-14OGo:1w9KqH:GL2THWUMa3-90tFgCMb2YZOf1YbsaYT6oHKLFb3UvkE",
-    "expire_date": "2026-04-06T10:36:33.852Z"
+    "session_data": ".eJxVjDsOwjAQBe_iGlnxL1lT0nMGa9de4wCypTipEHeHSCmgfTPzXiLgtpawdV7CnMRZKHH63Qjjg-sO0h3rrcnY6rrMJHdFHrTLa0v8vBzu30HBXr61tQCkBkDvNE2kSOWMk7MRwWJmtqM2zOSjSYSOtFd5BAIzeJd1YhDvD-14OGo:1w9LPz:B4nMZIEliU-ibWNrT3MEEiDqlCwLy8au9gIB4ZcNp8M",
+    "expire_date": "2026-04-06T11:13:27.993Z"
   }
 },
 {
@@ -154,6 +154,17 @@
     "email": "info@techdistrib.bf",
     "adresse": "Zone du Kadiogo, Ouagadougou",
     "created_at": "2026-04-02T21:12:43.136Z"
+  }
+},
+{
+  "model": "produits.fournisseur",
+  "pk": 5,
+  "fields": {
+    "nom": "Futur Hightech",
+    "telephone": "+22674642713",
+    "email": "futur.hightech00@gmail.com",
+    "adresse": "Ouaga BP560",
+    "created_at": "2026-04-05T11:05:18.055Z"
   }
 },
 {
