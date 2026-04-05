@@ -54,8 +54,8 @@
   "model": "sessions.session",
   "pk": "rq7ectzl34y7d4ncvp4zbvwx5xubj2yn",
   "fields": {
-    "session_data": ".eJxVjDsOwjAQBe_iGlnxL1lT0nMGa9de4wCypTipEHeHSCmgfTPzXiLgtpawdV7CnMRZKHH63Qjjg-sO0h3rrcnY6rrMJHdFHrTLa0v8vBzu30HBXr61tQCkBkDvNE2kSOWMk7MRwWJmtqM2zOSjSYSOtFd5BAIzeJd1YhDvD-14OGo:1w8P7D:CXsqCByyZeUWlAFlBzxGNwPnBZztvOjmxb2Srf2SkSg",
-    "expire_date": "2026-04-16T20:58:11.019Z"
+    "session_data": ".eJxVjDsOwjAQBe_iGlnxL1lT0nMGa9de4wCypTipEHeHSCmgfTPzXiLgtpawdV7CnMRZKHH63Qjjg-sO0h3rrcnY6rrMJHdFHrTLa0v8vBzu30HBXr61tQCkBkDvNE2kSOWMk7MRwWJmtqM2zOSjSYSOtFd5BAIzeJd1YhDvD-14OGo:1w9KqH:GL2THWUMa3-90tFgCMb2YZOf1YbsaYT6oHKLFb3UvkE",
+    "expire_date": "2026-04-06T10:36:33.852Z"
   }
 },
 {
@@ -170,6 +170,8 @@
     "seuil_alerte": 10,
     "image": "",
     "code_barre": null,
+    "date_peremption": null,
+    "date_entree_stock": null,
     "created_at": "2026-04-02T21:02:25.923Z",
     "updated_at": "2026-04-02T21:02:25.923Z",
     "created_by": [
@@ -191,6 +193,8 @@
     "seuil_alerte": 5,
     "image": "",
     "code_barre": null,
+    "date_peremption": null,
+    "date_entree_stock": null,
     "created_at": "2026-04-02T21:02:25.939Z",
     "updated_at": "2026-04-02T21:02:25.939Z",
     "created_by": [
@@ -212,6 +216,8 @@
     "seuil_alerte": 8,
     "image": "",
     "code_barre": null,
+    "date_peremption": null,
+    "date_entree_stock": null,
     "created_at": "2026-04-02T21:02:25.948Z",
     "updated_at": "2026-04-02T21:02:25.948Z",
     "created_by": [
@@ -233,6 +239,8 @@
     "seuil_alerte": 5,
     "image": "",
     "code_barre": null,
+    "date_peremption": null,
+    "date_entree_stock": null,
     "created_at": "2026-04-02T21:02:25.959Z",
     "updated_at": "2026-04-02T21:02:25.959Z",
     "created_by": [
@@ -254,6 +262,8 @@
     "seuil_alerte": 3,
     "image": "",
     "code_barre": null,
+    "date_peremption": null,
+    "date_entree_stock": null,
     "created_at": "2026-04-02T21:02:25.970Z",
     "updated_at": "2026-04-02T21:02:25.970Z",
     "created_by": [
@@ -275,6 +285,8 @@
     "seuil_alerte": 10,
     "image": "",
     "code_barre": null,
+    "date_peremption": null,
+    "date_entree_stock": null,
     "created_at": "2026-04-02T21:02:25.982Z",
     "updated_at": "2026-04-02T21:02:25.982Z",
     "created_by": [
@@ -296,6 +308,8 @@
     "seuil_alerte": 6,
     "image": "",
     "code_barre": null,
+    "date_peremption": null,
+    "date_entree_stock": null,
     "created_at": "2026-04-02T21:02:25.995Z",
     "updated_at": "2026-04-02T21:12:43.593Z",
     "created_by": [
@@ -317,6 +331,8 @@
     "seuil_alerte": 15,
     "image": "",
     "code_barre": null,
+    "date_peremption": null,
+    "date_entree_stock": null,
     "created_at": "2026-04-02T21:02:26.005Z",
     "updated_at": "2026-04-02T21:02:26.005Z",
     "created_by": [
@@ -338,6 +354,8 @@
     "seuil_alerte": 15,
     "image": "",
     "code_barre": null,
+    "date_peremption": null,
+    "date_entree_stock": null,
     "created_at": "2026-04-02T21:12:43.163Z",
     "updated_at": "2026-04-02T21:12:43.163Z",
     "created_by": [
@@ -359,6 +377,8 @@
     "seuil_alerte": 10,
     "image": "",
     "code_barre": null,
+    "date_peremption": null,
+    "date_entree_stock": null,
     "created_at": "2026-04-02T21:12:43.177Z",
     "updated_at": "2026-04-02T21:12:43.502Z",
     "created_by": [
@@ -380,6 +400,8 @@
     "seuil_alerte": 20,
     "image": "",
     "code_barre": null,
+    "date_peremption": null,
+    "date_entree_stock": null,
     "created_at": "2026-04-02T21:12:43.193Z",
     "updated_at": "2026-04-02T21:12:43.193Z",
     "created_by": [
@@ -401,6 +423,8 @@
     "seuil_alerte": 30,
     "image": "",
     "code_barre": null,
+    "date_peremption": null,
+    "date_entree_stock": null,
     "created_at": "2026-04-02T21:12:43.203Z",
     "updated_at": "2026-04-02T21:12:43.670Z",
     "created_by": [
@@ -422,6 +446,8 @@
     "seuil_alerte": 25,
     "image": "",
     "code_barre": null,
+    "date_peremption": null,
+    "date_entree_stock": null,
     "created_at": "2026-04-02T21:12:43.218Z",
     "updated_at": "2026-04-02T21:12:43.218Z",
     "created_by": [
@@ -443,6 +469,8 @@
     "seuil_alerte": 12,
     "image": "",
     "code_barre": null,
+    "date_peremption": null,
+    "date_entree_stock": null,
     "created_at": "2026-04-02T21:12:43.236Z",
     "updated_at": "2026-04-02T21:12:43.236Z",
     "created_by": [
@@ -464,6 +492,8 @@
     "seuil_alerte": 10,
     "image": "",
     "code_barre": null,
+    "date_peremption": null,
+    "date_entree_stock": null,
     "created_at": "2026-04-02T21:12:43.248Z",
     "updated_at": "2026-04-02T21:12:43.559Z",
     "created_by": [
@@ -485,6 +515,8 @@
     "seuil_alerte": 8,
     "image": "",
     "code_barre": null,
+    "date_peremption": null,
+    "date_entree_stock": null,
     "created_at": "2026-04-02T21:12:43.258Z",
     "updated_at": "2026-04-02T21:12:43.467Z",
     "created_by": [
@@ -506,6 +538,8 @@
     "seuil_alerte": 20,
     "image": "",
     "code_barre": null,
+    "date_peremption": null,
+    "date_entree_stock": null,
     "created_at": "2026-04-02T21:12:43.268Z",
     "updated_at": "2026-04-02T21:12:43.268Z",
     "created_by": [
@@ -527,6 +561,8 @@
     "seuil_alerte": 5,
     "image": "",
     "code_barre": null,
+    "date_peremption": null,
+    "date_entree_stock": null,
     "created_at": "2026-04-02T21:12:43.278Z",
     "updated_at": "2026-04-02T21:12:43.524Z",
     "created_by": [
@@ -548,6 +584,8 @@
     "seuil_alerte": 3,
     "image": "",
     "code_barre": null,
+    "date_peremption": null,
+    "date_entree_stock": null,
     "created_at": "2026-04-02T21:12:43.290Z",
     "updated_at": "2026-04-02T21:12:43.290Z",
     "created_by": [
@@ -569,6 +607,8 @@
     "seuil_alerte": 3,
     "image": "",
     "code_barre": null,
+    "date_peremption": null,
+    "date_entree_stock": null,
     "created_at": "2026-04-02T21:12:43.297Z",
     "updated_at": "2026-04-02T21:12:43.626Z",
     "created_by": [
