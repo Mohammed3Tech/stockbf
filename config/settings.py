@@ -101,3 +101,8 @@ CRISPY_TEMPLATE_PACK = 'bootstrap5'
 LOGIN_URL = '/comptes/login/'
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/comptes/login/'
+
+# Session ok.
+SESSION_COOKIE_AGE = 86400  # 24 heures
+SESSION_EXPIRE_AT_BROWSER_CLOSE = False
+SESSION_SAVE_EVERY_REQUEST = True

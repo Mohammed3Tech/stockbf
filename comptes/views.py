@@ -32,10 +32,15 @@ class InscriptionForm(UserCreationForm):
 
     def clean_username(self):
         username = self.cleaned_data.get('username')
-        if not re.match(r'^[\w\d@.+\-_]+$', username):
-            raise forms.ValidationError(
-                "Le nom d'utilisateur ne peut contenir que des lettres, chiffres et @/./+/-/_"
-        )
+        if username: 
+            if not re.match(r'^[\w\d@.+\-_]+$', username):
+                raise forms.ValidationError(
+                    "Utilisez uniquement lettres, chiffres et les caractères @ . + - _"
+            )
+            if User.objects.filter(username=username).exists():
+                raise forms.ValidationError(
+                    f"Le nom d'utilisateur '{username}' est déjà pris. Choisissez-en un autre."
+            )
         return username
 
     def __init__(self, *args, **kwargs):

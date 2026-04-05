@@ -8,7 +8,8 @@ class ProduitForm(forms.ModelForm):
         fields = [
             'nom', 'description', 'categorie', 'fournisseur',
             'prix_achat', 'prix_vente', 'quantite',
-            'seuil_alerte', 'image', 'code_barre'
+            'seuil_alerte', 'image', 'code_barre',
+            'date_peremption', 'date_entree_stock'
         ]
         widgets = {
             'nom': forms.TextInput(attrs={
@@ -42,6 +43,14 @@ class ProduitForm(forms.ModelForm):
             'code_barre': forms.TextInput(attrs={
                 'class': 'form-control',
                 'placeholder': 'Code barre (optionnel)'
+            }),
+            'date_peremption': forms.DateInput(attrs={
+                'class': 'form-control',
+                'type': 'date'
+            }),
+            'date_entree_stock': forms.DateInput(attrs={
+                'class': 'form-control',
+                'type': 'date'
             }),
         }
 

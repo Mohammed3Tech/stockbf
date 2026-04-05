@@ -315,12 +315,12 @@
             </div>
         </div>
         <div class="d-flex align-items-center gap-3">
-            {% if nb_alertes and nb_alertes > 0 %}
-            <a href="{% url 'produit_liste' %}" class="btn btn-sm btn-warning">
-                <i class="bi bi-exclamation-triangle-fill"></i>
-                {{ nb_alertes }} alerte{{ nb_alertes|pluralize }}
-            </a>
-            {% endif %}
+           {% if nb_alertes and nb_alertes > 0 %}
+<a href="{% url 'produit_liste' %}?statut=alerte" class="btn btn-sm btn-warning">
+    <i class="bi bi-exclamation-triangle-fill"></i>
+    {{ nb_alertes }} alerte{{ nb_alertes|pluralize }}
+</a>
+{% endif %}
             <div class="d-flex align-items-center gap-2">
                 <div style="width:36px;height:36px;background:linear-gradient(135deg,#667eea,#764ba2);
                     border-radius:50%;display:flex;align-items:center;justify-content:center;color:white;font-weight:600">

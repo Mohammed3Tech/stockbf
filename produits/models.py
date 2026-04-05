@@ -53,6 +53,17 @@ class Produit(models.Model):
     seuil_alerte = models.IntegerField(default=5)
     image = models.ImageField(upload_to='produits/', blank=True, null=True)
     code_barre = models.CharField(max_length=100, blank=True, unique=True, null=True)
+    date_peremption = models.DateField(
+        null=True,
+        blank=True,
+        verbose_name="Date de péremption"
+    )
+    date_entree_stock = models.DateField(
+        null=True,
+        blank=True,
+        auto_now_add=False,
+        verbose_name="Date d'entrée en stock"
+    )
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     created_by = models.ForeignKey(
